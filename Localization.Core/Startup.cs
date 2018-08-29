@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Westwind.Globalization;
 using Westwind.Globalization.AspnetCore;
+using Westwind.Utilities.Properties;
 
 namespace Localization.Core
 {
@@ -70,7 +71,12 @@ namespace Localization.Core
             // shown here with optional manual configuration code
             services.AddWestwindGlobalization();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddDataAnnotationsLocalization(options => {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                        factory.Create(typeof(Resources));
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

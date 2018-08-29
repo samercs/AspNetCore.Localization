@@ -55,5 +55,11 @@ namespace Localization.Core.Controllers
             var returnUrl = string.IsNullOrEmpty(Request.Path) ? "~/" : Request.Path.Value;
             return LocalRedirect("~/");
         }
+
+        public IActionResult TestModelValidation()
+        {
+            var book = new Book();
+            return View(book);
+        }
     }
 }
